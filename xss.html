@@ -1,18 +1,22 @@
-
 <!DOCTYPE html>
 <html>
 <head>
   <title>Teste XSS</title>
   <script>
-    function sendCookieToServer() {
-      // Exibe o cookie no console do navegador
-      console.log(document.cookie);
+    function displayCookies() {
+      // Obtém os cookies do documento
+      var cookies = document.cookie;
+      
+      // Exibe os cookies dentro da tag <span>
+      document.getElementById("cookieDisplay").innerText = cookies;
     }
   </script>
 </head>
 <body>
-  <h1 onmouseover="sendCookieToServer()">
-    Passe o mouse aqui para visualizar o cookie no console
+  <h1 onmouseover="displayCookies()">
+    Passe o mouse aqui para visualizar os cookies
   </h1>
+
+  <p><strong>Cookies: </strong><span id="cookieDisplay">Nenhum cookie disponível</span></p>
 </body>
 </html>

